@@ -30,8 +30,8 @@ for i in range(len(servers)):
 		#print(querystring)
 		payload = ""
                 headers = {
-                    'cookie': "pnp4nagios=81b90oupt9qsjvd1h09unjivn1",
-                    'authorization': "Basic b21kYWRtaW46U05ldXRyaW5vOTk="
+                    'cookie': "[---Your own---]",
+                    'authorization': "[--- Your own---]"
                     }
 
                 response = requests.request("GET", url, data=payload, headers=headers, params=querystring)
