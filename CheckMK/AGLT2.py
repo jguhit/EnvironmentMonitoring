@@ -31,7 +31,7 @@ for i in range(len(servers)):
 		payload = ""
                 headers = {
                     'cookie': "[---Your own---]",
-                    'authorization': "[-- Your own---]"
+                    'authorization': "[--- Your own---]"
                     }
 
                 response = requests.request("GET", url, data=payload, headers=headers, params=querystring)
