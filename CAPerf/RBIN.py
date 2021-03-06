@@ -27,8 +27,8 @@ for index, line in enumerate(hosts):
 	#querystring = {"resolution":"RATE","starttime":"1606978800","endtime":"1606986000","$expand":"portmfs","$select":"ID,portmfs/Timestamp,portmfs/im_BitsIn,portmfs/im_BitsOut,portmfs/im_BitsPerSecondIn,portmfs/im_BitsPerSecondOut,portmfs/im_UtilizationIn,portmfs/im_UtilizationOut","$filter":"((tolower(device/Name) eq tolower('r-bin-seb.umnet.umich.edu')) and (tolower(Name) eq tolower('{}')))".format(line)}
 	payload = ""
 	headers = {
-        'cookie': "JSESSIONID=p0pnitc0u19atbaqu91ajkov",
-        'Authorization': "Basic c3BlY3RwZDozckJAZSFAbiE="
+        'cookie': "---Your own---",
+        'Authorization': "--Your own---"
         }
 
         response = requests.request("GET", url, data=payload, headers=headers, params=querystring)
