@@ -13,13 +13,13 @@ git clone git@github.com:NetBASILISK/EnvironmentMonitoring.git
 cd EnvironmentMonitoring
 mkdir Output
 ```
-Go to the Script directory and setup the virtual environment
+Setup the virtual environment
 ```
-cd Scripts
 source env/bin/activate 
 ```
-Run the script in background using the following command: 
+Go to the Scripts directory and run the script in background using the following command: 
 ```
+cd Scripts
 nohup bash IndEnv.sh &>/dev/null &
 ```
 ## Contact
