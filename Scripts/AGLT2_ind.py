@@ -8,7 +8,7 @@ import datetime
 import pandas as pd
 import numpy as np
 from Timing import roundups, rounddos
-
+from requests.exceptions import Timeout
 current = datetime.datetime.now()
 current_5 = current - datetime.timedelta(minutes=5)
 start = rounddos(current_5)
@@ -43,7 +43,13 @@ for j in range(len(hosts)):
 		payload = ""
 		#headers = {'cookie':"pnp4nagios=81b90oupt9qsjvd1h09unjivn1", 'authorization': "Basic b21kYWRtaW46U05ldXRyaW5vOTk="}
 		headers = {"cookie": "pnp4nagios=v7gj225tqflmgal5c1ji54rqj1", "Cookie": "__utma=37526576.779950651.1585936035.1585936035.1585936035.1; pnp4nagios=hru4rg9ch6imsi34khjc747jg3; auth_atlas=omdadmin:1618406441.45:d4e6cb1629f078fa89b59d2429785d00","Authorization": "Basic b21kYWRtaW46U05ldXRyaW5vOTk="}
-		response = requests.request("GET", url, data=payload, headers=headers, params=querystring)
+		try:
+			response = requests.request("GET", url, data=payload, headers=headers, params=querystring, timeout=60)
+		except Timeout:
+			print("Timed out")
+		else:
+			print("Request is good")
+		
 		todos = json.loads(response.text)
 		todos == response.json()
 		#time.sleep(60)
@@ -82,7 +88,7 @@ for j in range(len(hosts)):
 			tuples = list(zip(timestamps, var_ave))
 			#print(tuples)
 			df_values = pd.DataFrame(data = tuples, columns = ['Timestamp', 'load5_AVERAGE'], dtype = float)
-			df_values["load5_AVERAGE"] = df_values["load5_AVERAGE"].replace(np.nan,0)
+			#df_values["load5_AVERAGE"] = df_values["load5_AVERAGE"].replace(np.nan,0)
 			df_values["Timestamp"] = pd.to_datetime(df_values["Timestamp"],unit='s')
 			df_values = df_values.set_index(["Timestamp"])
 			df_values = df_values.resample("5T").agg(['min','max','mean','std'], axis="columns").round(5)			
@@ -109,7 +115,7 @@ for j in range(len(hosts)):
 
 			tuples = list(zip(timestamps, var_ave))
 			df_values = pd.DataFrame(data = tuples, columns = ['Timestamp', 'util_AVERAGE'], dtype = float) 
-			df_values["util_AVERAGE"] = df_values["util_AVERAGE"].replace(np.nan,0)
+			#df_values["util_AVERAGE"] = df_values["util_AVERAGE"].replace(np.nan,0)
 			df_values["Timestamp"] = pd.to_datetime(df_values["Timestamp"], unit='s')
 			df_values = df_values.set_index(["Timestamp"])
 			#df_values = df_values.resample("5T").mean()
@@ -134,7 +140,7 @@ for j in range(len(hosts)):
 				var_ave.append(values[i][2])
 			tuples = list(zip(timestamps, var_ave))
 			df_values = pd.DataFrame(data = tuples, columns = ['Timestamp', 'disk_utilization_AVERAGE'], dtype = float)
-			df_values["disk_utilization_AVERAGE"] = df_values["disk_utilization_AVERAGE"].replace(np.nan,0)
+			#df_values["disk_utilization_AVERAGE"] = df_values["disk_utilization_AVERAGE"].replace(np.nan,0)
 			df_values["Timestamp"] = pd.to_datetime(df_values["Timestamp"], unit='s')
 			df_values = df_values.set_index(["Timestamp"])
 			#df_values = df_values.resample("5T").mean()
@@ -160,7 +166,7 @@ for j in range(len(hosts)):
 			tuples = list(zip(timestamps, var_ave))
 			#print(tuples)
 			df_values = pd.DataFrame(data = tuples, columns = ['Timestamp', 'mem_available_AVERAGE'], dtype = float)
-			df_values["mem_available_AVERAGE"] = df_values["mem_available_AVERAGE"].replace(np.nan, 0)
+			#df_values["mem_available_AVERAGE"] = df_values["mem_available_AVERAGE"].replace(np.nan, 0)
 			df_values["Timestamp"] = pd.to_datetime(df_values["Timestamp"], unit='s')
 			df_values = df_values.set_index(["Timestamp"])
 			df_values = df_values.resample("5T").agg(['min','max','mean', 'std'], axis="columns").round(5)

@@ -9,6 +9,7 @@ import datetime
 import pandas as pd   
 import numpy as np
 from Timing import roundups, rounddos
+from requests.exceptions import Timeout
 
 current = datetime.datetime.now()  
 current_5 = current - datetime.timedelta(minutes=5) 
@@ -26,7 +27,7 @@ end_final = time.mktime(end.timetuple())
 
 url = "http://capm-da-asb.umnet.umich.edu:8581/odata/api/interfaces" 
 #e.g 10s after 10 we want start: 9:55 and end, 10:00 
-hosts = ['et-8/2/0','et-8/0/0', 'et-4/3/0']
+hosts = ['et-8/0/0','et-4/3/0', 'et-8/2/0']
 #hosts = ['et-8/0/0', 'et-4/3/0']
 rbinpath = os.environ["rbin"]
 
@@ -40,9 +41,19 @@ for index, line in enumerate(hosts):
 	querystring = {"resolution":"RATE","starttime":"{}".format(int(start_final)),"endtime":"{}".format(int(end_final)),"$expand":"portmfs","$select":"ID,portmfs/Timestamp,portmfs/im_BitsIn,portmfs/im_BitsOut,portmfs/im_BitsPerSecondIn,portmfs/im_BitsPerSecondOut,portmfs/im_UtilizationIn,portmfs/im_UtilizationOut","$filter":"((tolower(device/Name) eq tolower('r-bin-seb.umnet.umich.edu')) and (tolower(Name) eq tolower('{}')))".format(line)}
 	payload = ""
 	headers = {'cookie': "JSESSIONID=p0pnitc0u19atbaqu91ajkov", 'Authorization': "Basic c3BlY3RwZDozckJAZSFAbiE="}
-	response = requests.request("GET", url, data=payload, headers=headers, params=querystring)
+	if line == 'et-8/2/0':
+		time.sleep(240)
+	else: 
+		time.sleep(1)
+	#time.sleep(10)
+	try:
+		response = requests.request("GET", url, data=payload, headers=headers, params=querystring, timeout=60)
+	except Timeout:
+		print("The request timed out")
+	else: 
+		print("The request is good")
 	todos = response.text
-	time.sleep(60)
+	#time.sleep(90)
 	df = pd.read_csv(io.StringIO(todos))
 	starttime = df["portmfs/Timestamp"].iloc[[0]]
 	endtime = df["portmfs/Timestamp"].iloc[[-1]]
