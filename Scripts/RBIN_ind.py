@@ -29,12 +29,12 @@ url = "http://capm-da-asb.umnet.umich.edu:8581/odata/api/interfaces"
 #e.g 10s after 10 we want start: 9:55 and end, 10:00 
 hosts = ['et-8/0/0','et-4/3/0', 'et-8/2/0']
 #hosts = ['et-8/0/0', 'et-4/3/0']
-rbinpath = os.environ["rbin"]
+#rbinpath = os.environ["rbin"]
 
-if os.path.isdir(rbinpath):
-	print("Path exists: ", rbinpath)
-else: 
-	print("Path does not exist")
+#if os.path.isdir(rbinpath):
+#	print("Path exists: ", rbinpath)
+#else: 
+#	print("Path does not exist")
 
 for index, line in enumerate(hosts):
 	print("===line===", line)
@@ -75,13 +75,13 @@ for index, line in enumerate(hosts):
 		newdf = newdf.T
 		print("==var==", var)
 		print(newdf)
-		newdf = newdf.to_csv(os.path.join(rbinpath,"RBIN_{}_{}.csv".format(var, index)), index=True)
-		checkpath = os.path.join(rbinpath,"RBIN_{}_{}.csv".format(var,index))
-		if os.path.exists(checkpath):
-			print("Path and file exists", checkpath)
-		else:
-			print("Path and file does not exist")
-		print("datadrame created for {}".format(var))
+		#newdf = newdf.to_csv(os.path.join(rbinpath,"RBIN_{}_{}.csv".format(var, index)), index=True)
+		#checkpath = os.path.join(rbinpath,"RBIN_{}_{}.csv".format(var,index))
+		#if os.path.exists(checkpath):
+		#	print("Path and file exists", checkpath)
+		#else:
+		#	print("Path and file does not exist")
+		#print("datadrame created for {}".format(var))
 		return df
 
 	for meta in range(len(metadata)):

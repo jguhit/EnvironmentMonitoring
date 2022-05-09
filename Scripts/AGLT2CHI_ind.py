@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np 
 from Timing import roundups, rounddos
 from requests.exceptions import Timeout
+import re 
 
 current = datetime.datetime.now()
 current_5 = current - datetime.timedelta(minutes=5) 
@@ -22,7 +23,8 @@ end_final = time.mktime(end.timetuple())
 #print("start orig: ", current_5, " ", "start rounded: ", start, " ", "start unix: ", start_final)   
 #print("end orig: ", current, " ", "end rounded: ", end, " ", "end unix: ", end_final)  
 
-url = "https://grafana.omnipop.btaa.org/grafana/api/datasources/proxy/82/query.cgi"
+url = "https://grafana.omnipop.btaa.org/grafana/api/datasources/proxy/87/query.cgi"
+url = "(https:\/\/grafana.omnipop.btaa.org\/grafana\/api\/datasources\/proxy\/"
 
 identifier = ['620d46c684eff80106ffc4b5769f77e9f658cc7c3ee3cd847261da09570167f3', '696e977330667f44c13ffe5364446c96a2fa4cc9137b9e5ddbd23605bf489e12', 'fa5373adef061fa051ef458a8e028a84749385edb16955537eac43712b6ef72b', '939820268eaf905fae19a951a9bd73af2834017d0d2744229d71608b47afdf1c', 'd3947c64aa4ebd202cff06fb9c5e6badf51296db72ab3ba8ff01f35811d423ae', '1dd502cdcfac422ff031a6f097ef8385c7b4078b4a4b19081bb39c0dd86ddae7']
 #identifier = ['620d46c684eff80106ffc4b5769f77e9f658cc7c3ee3cd847261da09570167f3']
