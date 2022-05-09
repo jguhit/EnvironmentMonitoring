@@ -1,4 +1,4 @@
-from extract_dict import AGLT2, AGLT2CHI, RBIN
+from extract_dict import AGLT2 #, AGLT2CHI, RBIN
 import json
 import requests
 import os
@@ -10,17 +10,17 @@ import numpy as np
 #print(start)
 #print(end)
 aglt2 = ['CPU_load', 'CPU_utilization', 'Disk_IO_SUMMARY', 'Memory']
-aglt2chi = ['input', 'output']
-rbin = ['GBIn', 'GBOut', 'GBpsIn', 'GBpsOut', 'UtilIn', 'UtilOut']
+#aglt2chi = ['input', 'output']
+#rbin = ['GBIn', 'GBOut', 'GBpsIn', 'GBpsOut', 'UtilIn', 'UtilOut']
 aglt2_min = []
 aglt2_max = []
 aglt2_mean = []
 aglt2_std = []
-aglt2chi_min = []
-aglt2chi_max = []
-aglt2chi_mean = []
-aglt2chi_std = []
-rbin_metrics = []
+#aglt2chi_min = []
+#aglt2chi_max = []
+#aglt2chi_mean = []
+#aglt2chi_std = []
+#rbin_metrics = []
 for i in range(len(aglt2)):
 	print("====AGLT2====", aglt2[i])
 	dfmin, dfmax, dfmean, dfstd = AGLT2("{}".format(aglt2[i]))
@@ -28,7 +28,7 @@ for i in range(len(aglt2)):
 	aglt2_max.append(dfmax)
 	aglt2_mean.append(dfmean)
 	aglt2_std.append(dfstd)
-
+'''
 for j in range(len(aglt2chi)):
 	print("====AGLT2_CHI====", aglt2chi[j])
 	dfmin, dfmax, dfmean, dfstd = AGLT2CHI("{}".format(aglt2chi[j]))
@@ -41,7 +41,7 @@ for k in range(len(rbin)):
 	print("====RBIN====", rbin[k])
 	metrics = RBIN("{}".format(rbin[k]))
 	rbin_metrics.append(metrics)
-
+'''
 timepath = os.environ["time"]
 if os.path.isdir(timepath):
         print("Path exists: ", timepath)
@@ -98,7 +98,8 @@ data = {
 		, 
 		'Memory Std': aglt2_std[3]
 	},
-
+}
+'''
 	"paths":{
 		"chic-aglt2":{
 			'Input Min': aglt2chi_min[0] 
@@ -132,6 +133,7 @@ data = {
 		},
 	},
 }
+'''
 date = os.environ["currentdate"]
 dictpath = os.environ["dict"]
 #print(data)

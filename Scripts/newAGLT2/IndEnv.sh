@@ -31,17 +31,17 @@ mkdir ${outdir}/Time
 export time=${outdir}/Time
 
 
-mkdir ${raw}/AGLT2_CHI
-export aglt2chi=${raw}/AGLT2_CHI
-mkdir ${raw}/RBIN
-export rbin=${raw}/RBIN
+#mkdir ${raw}/AGLT2_CHI
+#export aglt2chi=${raw}/AGLT2_CHI
+#mkdir ${raw}/RBIN
+#export rbin=${raw}/RBIN
 
 mkdir ${outdir}/Dict
 export dict=${outdir}/Dict 
 #source ${MAINDIR}/env/bin/activate
 python ${MAINDIR}/AGLT2_ind_nv.py > ${aglt2}/aglt2.log 2>&1 
-python ${MAINDIR}/AGLT2CHI_ind.py > ${aglt2chi}/aglt2chi.log 2>&1
-python ${MAINDIR}/RBIN_ind.py > ${rbin}/rbin.log 2>&1
+#python ${MAINDIR}/AGLT2CHI_ind.py > ${aglt2chi}/aglt2chi.log 2>&1
+#python ${MAINDIR}/RBIN_ind.py > ${rbin}/rbin.log 2>&1
 wait
 
 <<con

@@ -76,6 +76,7 @@ def AGLT2(metadata):
 	#print(dfmin)
 	return dfmin, dfmax, dfmean, dfstd
 
+'''
 #AGLT2_CHI_0.csv 
 def AGLT2CHI(metadata):
 	metadata = str(metadata)
@@ -158,3 +159,4 @@ def RBIN(metadata):
 	df = pd.Series(df['0'].values,index=df.nodes).to_dict()
 	#print(df)
 	return df
+'''
